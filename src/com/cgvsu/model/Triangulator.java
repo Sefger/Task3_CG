@@ -5,7 +5,7 @@ import java.util.ArrayList;
 // Для выполнения триангуляции модели
 public class Triangulator {
     //Нужен алгоритм веера
-    public TriangulateModel triangulateModel(Model model) {
+    public TriangulateModel triangulate(Model model) {
         TriangulateModel triangulateModel = new TriangulateModel(model);
         //очищаем для новой триангуляции!!!
         triangulateModel.polygons.clear();
@@ -47,9 +47,9 @@ public class Triangulator {
             ArrayList<Integer> triangleNormalIndices = new ArrayList<>();
 
             //первая вершина всегда вершина 0
-            triangleVertexIndices.add(vertexIndices.getFirst());
-            if (hasTexture) triangleTextureIndices.add(textureIndices.getFirst());
-            if (hasNormals) triangleNormalIndices.add(normalIndices.getFirst());
+            triangleVertexIndices.add(vertexIndices.get(0));
+            if (hasTexture) triangleTextureIndices.add(textureIndices.get(0));
+            if (hasNormals) triangleNormalIndices.add(normalIndices.get(0));
 
             //вторая
             triangleVertexIndices.add(vertexIndices.get(i));
