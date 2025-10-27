@@ -4,7 +4,7 @@ package com.cgvsu.math;
 public class Vector3f {
 
     float x, y, z;
-    final float eps = 1e-7f;
+    protected final float eps = 1e-7f;
 
     public Vector3f(float x, float y, float z) {
         this.x = x;
@@ -14,5 +14,17 @@ public class Vector3f {
 
     public boolean equals(Vector3f other) {
         return Math.abs(x - other.x) < eps && Math.abs(y - other.y) < eps && Math.abs(z - other.z) < eps;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getZ() {
+        return z;
     }
 }
