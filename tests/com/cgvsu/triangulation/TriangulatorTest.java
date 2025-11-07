@@ -19,10 +19,10 @@ class TriangulatorTest {
         Model model = new Model();
 
         // Добавляем вершины квадрата
-        model.vertices.add(new Vector3f(0, 0, 0));
-        model.vertices.add(new Vector3f(1, 0, 0));
-        model.vertices.add(new Vector3f(1, 1, 0));
-        model.vertices.add(new Vector3f(0, 1, 0));
+        model.addVertices(new Vector3f(0, 0, 0));
+        model.addVertices(new Vector3f(1, 0, 0));
+        model.addVertices(new Vector3f(1, 1, 0));
+        model.addVertices(new Vector3f(0, 1, 0));
 
         // Создаем четырехугольник
         Polygon quad = new Polygon();
@@ -33,14 +33,14 @@ class TriangulatorTest {
         vertexIndices.add(3);
         quad.setVertexIndices(vertexIndices);
 
-        model.polygons.add(quad);
+        model.addPolygon(quad);
 
         Triangulator triangulator = new Triangulator();
         TriangulateModel result = triangulator.triangulate(model);
 
-        assertEquals(2, result.polygons.size());
-        assertEquals(3, result.polygons.get(0).getVertexIndices().size());
-        assertEquals(3, result.polygons.get(1).getVertexIndices().size());
+        assertEquals(2, result.getPolygons().size());
+        assertEquals(3, result.getPolygons().get(0).getVertexIndices().size());
+        assertEquals(3, result.getPolygons().get(1).getVertexIndices().size());
         assertTrue(result.isFullyTriangulated());
     }
 
@@ -48,9 +48,9 @@ class TriangulatorTest {
     void testTriangulateTriangle() {
         Model model = new Model();
 
-        model.vertices.add(new Vector3f(0, 0, 0));
-        model.vertices.add(new Vector3f(1, 0, 0));
-        model.vertices.add(new Vector3f(0, 1, 0));
+        model.addVertices(new Vector3f(0, 0, 0));
+        model.addVertices(new Vector3f(1, 0, 0));
+        model.addVertices(new Vector3f(0, 1, 0));
 
         Polygon triangle = new Polygon();
         ArrayList<Integer> vertexIndices = new ArrayList<>();
@@ -59,13 +59,13 @@ class TriangulatorTest {
         vertexIndices.add(2);
         triangle.setVertexIndices(vertexIndices);
 
-        model.polygons.add(triangle);
+        model.addPolygon(triangle);
 
         Triangulator triangulator = new Triangulator();
         TriangulateModel result = triangulator.triangulate(model);
 
-        assertEquals(1, result.polygons.size());
-        assertEquals(3, result.polygons.get(0).getVertexIndices().size());
+        assertEquals(1, result.getPolygons().size());
+        assertEquals(3, result.getPolygons().get(0).getVertexIndices().size());
     }
 
     @Test
@@ -73,22 +73,22 @@ class TriangulatorTest {
         Model model = new Model();
 
         // Вершины
-        model.vertices.add(new Vector3f(0, 0, 0));
-        model.vertices.add(new Vector3f(1, 0, 0));
-        model.vertices.add(new Vector3f(1, 1, 0));
-        model.vertices.add(new Vector3f(0, 1, 0));
+        model.addVertices(new Vector3f(0, 0, 0));
+        model.addVertices(new Vector3f(1, 0, 0));
+        model.addVertices(new Vector3f(1, 1, 0));
+        model.addVertices(new Vector3f(0, 1, 0));
 
         // Текстурные координаты
-        model.textureVertices.add(new Vector2f(0, 0));
-        model.textureVertices.add(new Vector2f(1, 0));
-        model.textureVertices.add(new Vector2f(1, 1));
-        model.textureVertices.add(new Vector2f(0, 1));
+        model.addTextureVertices(new Vector2f(0, 0));
+        model.addTextureVertices(new Vector2f(1, 0));
+        model.addTextureVertices(new Vector2f(1, 1));
+        model.addTextureVertices(new Vector2f(0, 1));
 
         // Нормали
-        model.normals.add(new Vector3f(0, 0, 1));
-        model.normals.add(new Vector3f(0, 0, 1));
-        model.normals.add(new Vector3f(0, 0, 1));
-        model.normals.add(new Vector3f(0, 0, 1));
+        model.addNormals(new Vector3f(0, 0, 1));
+        model.addNormals(new Vector3f(0, 0, 1));
+        model.addNormals(new Vector3f(0, 0, 1));
+        model.addNormals(new Vector3f(0, 0, 1));
 
         // Четырехугольник с текстурами и нормалями
         Polygon quad = new Polygon();
@@ -106,15 +106,15 @@ class TriangulatorTest {
         quad.setTextureVertexIndices(textureIndices);
         quad.setNormalIndices(normalIndices);
 
-        model.polygons.add(quad);
+        model.addPolygon(quad);
 
         Triangulator triangulator = new Triangulator();
         TriangulateModel result = triangulator.triangulate(model);
 
-        assertEquals(2, result.polygons.size());
+        assertEquals(2, result.getPolygons().size());
 
         // Проверяем, что текстуры и нормали сохранились
-        Polygon firstTriangle = result.polygons.get(0);
+        Polygon firstTriangle = result.getPolygons().get(0);
         assertEquals(3, firstTriangle.getTextureVertexIndices().size());
         assertEquals(3, firstTriangle.getNormalIndices().size());
     }
@@ -130,7 +130,7 @@ class TriangulatorTest {
         vertexIndices.add(1);
         vertexIndices.add(2);
         triangle.setVertexIndices(vertexIndices);
-        model.polygons.add(triangle);
+        model.addPolygon(triangle);
 
         assertFalse(Triangulator.needsTriangulation(model));
 
@@ -142,7 +142,7 @@ class TriangulatorTest {
         vertexIndices.add(2);
         vertexIndices.add(3);
         quad.setVertexIndices(vertexIndices);
-        model.polygons.add(quad);
+        model.addPolygon(quad);
 
         assertTrue(Triangulator.needsTriangulation(model));
     }

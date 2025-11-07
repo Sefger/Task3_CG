@@ -11,23 +11,23 @@ import java.util.ArrayList;
 public class ObjWriter {
     public static void write(Model model, String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (var vertex : model.vertices) {
+            for (var vertex : model.getVertices()) {
                 writer.write(String.format("v %.6f %.6f %.6f", vertex.getX(), vertex.getY(), vertex.getZ()));
 
                 writer.newLine();
             }
             //текстурные коорд
-            for (var texVertex : model.textureVertices) {
+            for (var texVertex : model.getTextureVertices()) {
                 writer.write(String.format("vt %.6f %.6f", texVertex.getX(), texVertex.getY()));
                 writer.newLine();
             }
             //нормали
-            for (var normal : model.normals) {
+            for (var normal : model.getNormals()) {
                 writer.write(String.format("vn %.6f %.6f %.6f", normal.getX(), normal.getY(), normal.getZ()));
                 writer.newLine();
             }
             //полигоны
-            for (Polygon polygon : model.polygons) {
+            for (Polygon polygon : model.getPolygons()) {
                 //вернусь допишу
                 writer.write(faceTostring(polygon));
                 writer.newLine();

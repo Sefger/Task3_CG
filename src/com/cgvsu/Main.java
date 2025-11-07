@@ -17,9 +17,9 @@ public class Main {
         System.out.println("Loading model ...");
         Model model = ObjReader.read(fileContent);
 
-        System.out.println("Vertices: " + model.vertices.size());
-        System.out.println("Texture vertices: " + model.textureVertices.size());
-        System.out.println("Normals: " + model.normals.size());
-        System.out.println("Polygons: " + model.polygons.size());
+        System.out.println("Vertices: " + model.getTextureVertices().size());
+        System.out.println("Texture vertices: " + model.getTextureVertices().size());
+        System.out.println("Normals: " + model.getNormals().size());
+        System.out.println("Polygons: " + model.getPolygons().size());
     }
 }
